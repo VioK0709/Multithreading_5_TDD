@@ -4,12 +4,17 @@ import java.util.HashMap;
 
 public class PhoneBook {
 
-    HashMap<String, String> phone = new HashMap<>();
+    HashMap<String, String> phoneBook = new HashMap<>();
 
     public int add(String name, String number) {
-        if (!phone.containsKey(name)) {
-            phone.put(name, number);
+        if (!phoneBook.containsKey(name)) {
+            phoneBook.put(name, number);
         }
-        return phone.size();
+        return phoneBook.size();
+    }
+
+    public String findByNumber(String number) {
+        return null;
     }
 }
+

@@ -1,6 +1,5 @@
 import org.example.PhoneBook;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -8,6 +7,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class PhoneBookTest {
     PhoneBook phoneBook;
@@ -36,6 +38,23 @@ public class PhoneBookTest {
     void testAdd(int expected, String name1, String number1, String name2, String number2) {
         System.out.println("test add");
         phoneBook.add(name1, name2);
-        Assertions.assertEquals(expected, phoneBook.add(name2, number2));
+        assertEquals(expected, phoneBook.add(name2, number2));
     }
+    public static Stream<Arguments> findByNumber() {
+        List<Arguments> argumentsList = List.of(
+                Arguments.of("Ivan", "Ivan", "+79001111223", "Ivan", "+79003333445"),
+                Arguments.of("Liza", "Liza", "+79002222334", "Petr", "+79004444556"));
+        return argumentsList.stream();
+    }
+
+    @ParameterizedTest
+    @MethodSource("findByNumber")
+    void testFindByNumber(String expected, String name1, String number1, String name2, String number2) {
+        System.out.println("test findByNumber");
+       phoneBook.add(name1, number1);
+       phoneBook.add(name2, number2);
+        assertEquals(expected, phoneBook.findByNumber(number1));
+    }
+
+
 }
