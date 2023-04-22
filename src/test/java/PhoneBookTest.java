@@ -58,8 +58,8 @@ public class PhoneBookTest {
 
     public static Stream<Arguments> findByName() {
         List<Arguments> argumentsList = List.of(
-                Arguments.of("+79001111223", "Ivan", "Ivan", "+79001111223", "Ivan", "+79003333445"),
-                Arguments.of("+79002222334", "Liza", "Liza", "+79002222334", "Petr", "+79004444556"));
+                Arguments.of(  "+79001111223", "Ivan", "+79001111223", "Ivan", "+79003333445"),
+                Arguments.of(  "+79004444556", "Liza", "+79004444556", "Petr", "+79004444556"));
         return argumentsList.stream();
     }
 
@@ -69,7 +69,7 @@ public class PhoneBookTest {
         System.out.println("test findByName");
         phoneBook.add(name1, number1);
         phoneBook.add(name2, number2);
-        assertEquals(expected, phoneBook.findByNumber(name1));
+        assertEquals(expected, phoneBook.findByName(name1));
     }
 
 
