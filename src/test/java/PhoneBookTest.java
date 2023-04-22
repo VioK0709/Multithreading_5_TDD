@@ -1,4 +1,5 @@
 import org.example.PhoneBook;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,6 +9,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhoneBookTest {
@@ -58,8 +61,8 @@ public class PhoneBookTest {
 
     public static Stream<Arguments> findByName() {
         List<Arguments> argumentsList = List.of(
-                Arguments.of(  "+79001111223", "Ivan", "+79001111223", "Ivan", "+79003333445"),
-                Arguments.of(  "+79004444556", "Liza", "+79004444556", "Petr", "+79004444556"));
+                Arguments.of("+79001111223", "Ivan", "+79001111223", "Ivan", "+79003333445"),
+                Arguments.of("+79004444556", "Liza", "+79004444556", "Petr", "+79004444556"));
         return argumentsList.stream();
     }
 
@@ -72,5 +75,19 @@ public class PhoneBookTest {
         assertEquals(expected, phoneBook.findByName(name1));
     }
 
+    public static Stream<Arguments> printAllNames() {
+        List<Arguments> argumentsList = List.of(
+                Arguments.of("Ivan", "+79001111223", "Ivan", "+79003333445"),
+                Arguments.of("Liza", "+79004444556", "Petr", "+79004444556"));
+        return argumentsList.stream();
+    }
 
+    @ParameterizedTest
+    @MethodSource("printAllNames")
+    void testPrintAllNames(List<String> names, String name1, String number1, String name2, String number2) {
+        System.out.println("test printAllNames");
+        phoneBook.add(name1, number1);
+        phoneBook.add(name2, number2);
+        assertThat(names.toString(), is(phoneBook.printAllNames()).isExceptional());
+    }
 }
