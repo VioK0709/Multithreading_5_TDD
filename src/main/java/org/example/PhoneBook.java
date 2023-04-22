@@ -14,7 +14,12 @@ public class PhoneBook {
     }
 
     public String findByNumber(String number) {
-        return null;
+        return phoneBook.entrySet().stream()
+                .filter(e -> e.getValue().equals(number))
+                .map(HashMap.Entry::getKey)
+                .findFirst()
+                .orElse(null);
     }
+
 }
 
