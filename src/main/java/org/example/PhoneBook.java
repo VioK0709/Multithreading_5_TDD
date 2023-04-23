@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class PhoneBook {
 
@@ -20,12 +20,17 @@ public class PhoneBook {
                 .findFirst()
                 .orElse(null);
     }
+
     public String findByName(String name) {
         return phoneBook.get(name);
+    }
 
+    public List<String> printAllNames() {
+        List<String> result = new ArrayList<>();
+        for (String key : phoneBook.keySet()) {
+            result.add(key.replaceAll("[\\[\\]]", ""));
+        }
+        return result;
+    }
 }
-    public String printAllNames() {
-        return null;
-}}
-
 
